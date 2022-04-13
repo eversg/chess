@@ -3,7 +3,8 @@ import numpy as np
 
 class Figur():
     """single game figure with properties"""
-    def __init__(self, image, spiel):
+    def __init__(self, image, spiel, player):
+        self.player = player
         self.spiel = spiel
         self.x = 0
         self.y = 0
@@ -32,11 +33,16 @@ class Bauer(Figur):
 
         x = self.field[0] - infield[0]
         y = np.abs(self.field[1] - infield[1])
-
-        if x == 1 and y == 0:
-            return True
-        else:
-            return False
+        if self.player.color == "black":
+            if x == -1 and y == 0:
+                return True
+            else:
+                return False
+        elif self.player.color == "white":
+            if x == 1 and y == 0:
+                return True
+            else:
+                return False
 
 class Turm(Figur):
 

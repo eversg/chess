@@ -28,7 +28,7 @@ class Spiel():
 
         i = -1
         for h in range(8):
-            if i == -1 or i==0:
+            if i == -1 or i == 0:
                 color = self.white
                 i = 1
             else:
