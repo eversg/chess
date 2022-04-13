@@ -3,7 +3,7 @@ import numpy as np
 
 class Figur():
     """single game figure with properties"""
-    def __init__(self, image,spiel):
+    def __init__(self, image, spiel):
         self.spiel = spiel
         self.x = 0
         self.y = 0
@@ -30,7 +30,10 @@ class Bauer(Figur):
 
     def is_field_allowed(self, infield):
 
-        if infield[0] == self.field[0] + 1 and infield[1] == self.field[1]:
+        x = self.field[0] - infield[0]
+        y = np.abs(self.field[1] - infield[1])
+
+        if x == 1 and y == 0:
             return True
         else:
             return False
@@ -38,17 +41,14 @@ class Bauer(Figur):
 class Turm(Figur):
 
     def is_field_allowed(self, infield):
+        x = np.abs(self.field[0] - infield[0])
+        y = np.abs(self.field[1] - infield[1])
 
-        if infield[0] > self.field[0] and infield[1] == self.field[1]:
-            return True
-        elif infield[0] < self.field[0] and infield[1] == self.field[1]:
-            return True
-        if infield[0] == self.field[0] and infield[1] < self.field[1]:
-            return True
-        elif infield[0] == self.field[0] and infield[1] > self.field[1]:
+        if y == 0 and x > 0 or y > 0 and x == 0:
             return True
         else:
             return False
+
 
 
 class Springer(Figur):
@@ -57,8 +57,7 @@ class Springer(Figur):
 
         x = np.abs(self.field[0] - infield[0])
         y = np.abs(self.field[1] - infield[1])
-        print(x)
-        print(y)
+
         if x == y and x > 0:
             return True
         else:

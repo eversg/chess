@@ -9,7 +9,7 @@ class Spiel():
         self.matrix = [[],[],[],[],[],[],[],[]]      #Gamefield
         self.width, self.height = 800, 700           #resolution
         self.screen = pygame.display.set_mode((self.width, self.height))
-
+        self.players = [Player(self,"black"), Player(self, "white")]
         """       game images       """
         self.bg=  pygame.image.load("backround.png")
         self.gray = pygame.image.load("chessgray.png")
@@ -45,14 +45,12 @@ class Spiel():
                     i = 0
         """  placing the game figures on the field """
         for w in range(8):
-            self.matrix[0][w].figur = Bauer(pygame.image.load("bauer.png"), self)
-            self.matrix[0][w].figur.set_Figur_position(self.matrix[0][w].x + 17, self.matrix[0][w].y + 10)
-            self.matrix[1][w].figur = King(pygame.image.load("bauer.png"), self)
-            self.matrix[1][w].figur.set_Figur_position(self.matrix[1][w].x + 17, self.matrix[1][w].y + 10)
-            self.matrix[6][w].figur = Figur(pygame.image.load("bauer.png"), self)
-            self.matrix[6][w].figur.set_Figur_position(self.matrix[6][w].x + 17, self.matrix[6][w].y + 10)
-            self.matrix[7][w].figur = Figur(pygame.image.load("bauer.png"), self)
-            self.matrix[7][w].figur.set_Figur_position(self.matrix[7][w].x + 17, self.matrix[7][w].y + 10)
+            for j in range(2):
+                for i in range(2):
+                    self.matrix[i+(7-2*i)*j][w].figur = self.players[j].figures[i][w]
+                    self.matrix[i+(7-2*i)*j][w].figur.set_Figur_position(self.matrix[i+(7-2*i)*j][w].x + 17, self.matrix[i+(7-2*i)*j][w].y + 10)
+
+
         self.gameloop()
 
     def gameloop(self):
