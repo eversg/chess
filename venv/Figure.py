@@ -20,17 +20,24 @@ class Figur():
 
     def get_Figur_position(self):
         """gets Figur position"""
-        return self.x , self.y
+        return self.x, self.y
 
     def is_field_allowed(self, infield):
         """checks if the figure is allowed to move to that field"""
-        pass
+        if self.spiel.matrix[infield[0]][infield[1]].figur != None:
+            print("hello")
+            return False
+        else:
+            return True
+
 
 
 class Bauer(Figur):
 
     def is_field_allowed(self, infield):
-
+        d = super().is_field_allowed(infield)
+        if not d:
+            return False
         x = self.field[0] - infield[0]
         y = np.abs(self.field[1] - infield[1])
         if self.player.color == "black":
@@ -47,6 +54,10 @@ class Bauer(Figur):
 class Turm(Figur):
 
     def is_field_allowed(self, infield):
+        d = super().is_field_allowed(infield)
+        if not d:
+            return False
+        print("hier")
         x = np.abs(self.field[0] - infield[0])
         y = np.abs(self.field[1] - infield[1])
 
@@ -60,7 +71,9 @@ class Turm(Figur):
 class Springer(Figur):
 
     def is_field_allowed(self, infield):
-
+        d = super().is_field_allowed(infield)
+        if not d:
+            return False
         x = np.abs(self.field[0] - infield[0])
         y = np.abs(self.field[1] - infield[1])
 
@@ -72,6 +85,9 @@ class Springer(Figur):
 class King(Figur):
 
     def is_field_allowed(self, infield):
+        d = super().is_field_allowed(infield)
+        if not d:
+            return False
         x = np.abs(self.field[0] - infield[0])
         y = np.abs(self.field[1] - infield[1])
 
@@ -84,6 +100,9 @@ class King(Figur):
 class Queen(Figur):
 
     def is_field_allowed(self, infield):
+        d = super().is_field_allowed(infield)
+        if not d:
+            return False
         x = np.abs(self.field[0] - infield[0])
         y = np.abs(self.field[1] - infield[1])
         print(x)
@@ -96,7 +115,9 @@ class Queen(Figur):
 class Horse(Figur):
 
     def is_field_allowed(self, infield):
-
+        d = super().is_field_allowed(infield)
+        if not d:
+            return False
         x = np.abs(self.field[0] - infield[0])
         y = np.abs(self.field[1] - infield[1])
         print(x)

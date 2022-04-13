@@ -127,8 +127,9 @@ class Spiel():
                     a.figur = self.currentFigur
 
                 else:
+                    print("False")
                     a = self.matrix[self.currentFigur.field[0]][self.currentFigur.field[1]]
-                    x, y= a.get_Field_position()
+                    x, y = a.get_Field_position()
                     x += 15
                     y += 10
                     self.currentFigur.set_Figur_position(x, y)
