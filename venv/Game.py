@@ -3,7 +3,8 @@ from Figure import Figur, Bauer, Springer, Turm, King, Queen, Horse
 from Player import Player
 from Field import Field
 
-class Spiel():
+
+class Spiel:
     """Game"""
     def __init__(self):
         self.matrix = [[],[],[],[],[],[],[],[]]      #Gamefield
@@ -11,10 +12,11 @@ class Spiel():
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.players = [Player(self,"black"), Player(self, "white")]
         """       game images       """
-        self.bg=  pygame.image.load("backround.png")
+        self.bg = pygame.image.load("backround.png")
         self.gray = pygame.image.load("chessgray.png")
         self.white = pygame.image.load("chesswhite#.png")
 
+        self.currentplayer = "white"
         self.currentFigur = None                    #safes an object of a figure that is getting moved by the mouse
         self.pressed = False                        #bool to check if the mouse is currently pressed or not
         self.infield = [0, 0]                       #safes the current white or gray spot of the mouse position
@@ -99,13 +101,12 @@ class Spiel():
             mouse_posi = pygame.mouse.get_pos()
             x, y = field.figur.get_Figur_position()
             """ checks if the mouse on a figur """
-            if (x <= mouse_posi[0] <= x + field.figur.width
-                and y <= mouse_posi[1] <= y + field.figur.height):
-
-                self.currentFigur = field.figur
-                self.currentFigur.field = field.matrixpos
-                field.figur = None
-                self.pressed = True
+            if x <= mouse_posi[0] <= x + field.figur.width and y <= mouse_posi[1] <= y + field.figur.height:
+                if field.figur.player.color == self.currentplayer:
+                    self.currentFigur = field.figur
+                    self.currentFigur.field = field.matrixpos
+                    field.figur = None
+                    self.pressed = True
 
     def move(self):
         """when the mouse is still pressed it moves the current moving figure on the new mouse position
@@ -114,9 +115,7 @@ class Spiel():
             if self.pressed:
                 mouse_posi = pygame.mouse.get_pos()
                 self.currentFigur.set_Figur_position (mouse_posi[0], mouse_posi[1])
-
         else:
-
             if self.pressed:
                 if self.currentFigur.is_field_allowed(self.infield):
                     self.matrix[self.currentFigur.field[0]][self.currentFigur.field[1]].figur = None
@@ -127,7 +126,10 @@ class Spiel():
                     self.currentFigur.set_Figur_position(x, y)
                     a.figur = self.currentFigur
                     self.currentFigur.field = self.infield
-
+                    if self.currentplayer == "white":
+                        self.currentplayer = "black"
+                    else:
+                        self.currentplayer = "white"
                 else:
                     a = self.matrix[self.currentFigur.field[0]][self.currentFigur.field[1]]
                     x, y = a.get_Field_position()

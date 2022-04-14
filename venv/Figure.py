@@ -23,12 +23,24 @@ class Figur:
         """gets Figur position"""
         return self.x, self.y
 
+    def beat_figure(self, figure):
+        if figure.player.color != self.player.color:
+            if type(figure) == King:
+                print(self.player.color + " wins")
+                return True
+            else:
+                return True
+        else:
+            return False
+
     def is_field_allowed(self, infield):
         """checks if the figure is allowed to move to that field"""
-        if self.spiel.matrix[infield[0]][infield[1]].figur != None:
-            return False
+        figure  = self.spiel.matrix[infield[0]][infield[1]].figur
+        if self.spiel.matrix[infield[0]][infield[1]].figur!= None:
+
+            return self.beat_figure(figure)
         else:
-            return True
+            return True, False
 
     def is_way_free(self, infield):
         x = infield[0] - self.field[0]
