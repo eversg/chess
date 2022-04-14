@@ -12,9 +12,10 @@ class Spiel:
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.players = [Player(self,"black"), Player(self, "white")]
         """       game images       """
-        self.bg = pygame.image.load("backround.png")
-        self.gray = pygame.image.load("chessgray.png")
-        self.white = pygame.image.load("chesswhite#.png")
+        img = "images/"
+        self.bg = pygame.image.load(img + "backround.png")
+        self.gray = pygame.image.load(img + "chessgray.png")
+        self.white = pygame.image.load(img + "chesswhite#.png")
 
         self.currentplayer = "white"
         self.currentFigur = None                    #safes an object of a figure that is getting moved by the mouse

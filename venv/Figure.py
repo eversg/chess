@@ -40,7 +40,7 @@ class Figur:
 
             return self.beat_figure(figure)
         else:
-            return True, False
+            return True
 
     def is_way_free(self, infield):
         x = infield[0] - self.field[0]
@@ -164,6 +164,6 @@ class Horse(Figur):
         print(x)
         print(y)
         if x == 2 and y == 1 or x == 1 and y == 2:
-            return self.is_way_free(infield)
+            return True
         else:
             return False
