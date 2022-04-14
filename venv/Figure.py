@@ -1,7 +1,8 @@
 import pygame
 import numpy as np
 
-class Figur():
+
+class Figur:
     """single game figure with properties"""
     def __init__(self, image, spiel, player):
         self.player = player
@@ -25,12 +26,38 @@ class Figur():
     def is_field_allowed(self, infield):
         """checks if the figure is allowed to move to that field"""
         if self.spiel.matrix[infield[0]][infield[1]].figur != None:
-            print("hello")
             return False
         else:
             return True
 
+    def is_way_free(self, infield):
+        x = infield[0] - self.field[0]
+        y = infield[1] - self.field[1]
+        a = 1
+        b = 1
 
+        if x < 0:
+            a = -1
+        if y < 0:
+            b = -1
+
+        if x == 0:
+            for j in range(b, y, b):
+                if self.spiel.matrix[self.field[0]][self.field[1] + j].figur != None:
+                    return False
+
+        elif y == 0:
+            for i in range(a, x, a):
+                if self.spiel.matrix[self.field[0] + i][self.field[1]].figur != None:
+                    print(self.field[0] + i, self.field[0])
+                    return False
+
+        elif np.abs(x) == np.abs(y):
+            for i in range(np.abs(x)):
+
+                if self.spiel.matrix[self.field[0] + a*i][self.field[1] + b*i].figur != None:
+                    return False
+        return True
 
 class Bauer(Figur):
 
@@ -51,21 +78,21 @@ class Bauer(Figur):
             else:
                 return False
 
+
 class Turm(Figur):
 
     def is_field_allowed(self, infield):
         d = super().is_field_allowed(infield)
         if not d:
             return False
-        print("hier")
         x = np.abs(self.field[0] - infield[0])
         y = np.abs(self.field[1] - infield[1])
 
         if y == 0 and x > 0 or y > 0 and x == 0:
-            return True
+
+            return self.is_way_free(infield)
         else:
             return False
-
 
 
 class Springer(Figur):
@@ -78,9 +105,10 @@ class Springer(Figur):
         y = np.abs(self.field[1] - infield[1])
 
         if x == y and x > 0:
-            return True
+            return self.is_way_free(infield)
         else:
             return False
+
 
 class King(Figur):
 
@@ -92,7 +120,7 @@ class King(Figur):
         y = np.abs(self.field[1] - infield[1])
 
         if x == 1 and y == 0 or y == 1 and x == 0 or y == 1 and  x == 1:
-            return True
+            return self.is_way_free(infield)
         else:
             return False
 
@@ -108,9 +136,10 @@ class Queen(Figur):
         print(x)
         print(y)
         if x == y and  x > 0 or x > 0 and y == 0 or x == 0 and y > 0:
-            return True
+            return self.is_way_free(infield)
         else:
             return False
+
 
 class Horse(Figur):
 
@@ -122,7 +151,7 @@ class Horse(Figur):
         y = np.abs(self.field[1] - infield[1])
         print(x)
         print(y)
-        if x == 2 and  y == 1 or x == 1 and y == 2:
-            return True
+        if x == 2 and y == 1 or x == 1 and y == 2:
+            return self.is_way_free(infield)
         else:
             return False

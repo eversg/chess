@@ -9,7 +9,7 @@ class Player():
         imageurl = self.color + "bauer.png"
         self.figures = [[Turm(pygame.image.load(imageurl), spiel, self), Horse(pygame.image.load(imageurl), spiel, self),
                          Springer(pygame.image.load(imageurl), spiel, self), King(pygame.image.load(imageurl), spiel,self),
-                         King(pygame.image.load(imageurl), spiel, self), Springer(pygame.image.load(imageurl), spiel, self),
+                         Queen(pygame.image.load(imageurl), spiel, self), Springer(pygame.image.load(imageurl), spiel, self),
                          Horse(pygame.image.load(imageurl), spiel, self), Turm(pygame.image.load(imageurl), spiel,self)],
                         [Bauer(pygame.image.load(imageurl), spiel,self), Bauer(pygame.image.load(imageurl), spiel,self),
                          Bauer(pygame.image.load(imageurl), spiel, self), Bauer(pygame.image.load(imageurl), spiel,self),
